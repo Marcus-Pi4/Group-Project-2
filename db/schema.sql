@@ -1,3 +1,18 @@
 DROP DATABASE IF EXISTS user_db;
 
 CREATE DATABASE user_db;
+
+USE user_db;
+
+CREATE TABLE users (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(30) NOT NULL,
+    password VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE cookies (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
