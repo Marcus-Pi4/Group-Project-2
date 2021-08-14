@@ -1,4 +1,6 @@
-// NYT Newswire API - fetches the most up to date NYT publications for our default publications to render on page load - can filter 'all', 'nyt' and 'inyt' for the first 'all' and similar to above, there is a section list available to input into the second 'all
+// NYT Newswire API - fetches the most up to date NYT publications for our default publications to render on page load - can filter 'all', 'nyt' and 'inyt' for the first 'all' and similar to above, there is a section list available to input into the second 'all 
+
+const newYorkTImesButton = document.queryselector("")
 
 function getTopStories(){
     fetch(`https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=QuEHRaQh47l8vSF9ewprDtUY6fj2IJz6`)
