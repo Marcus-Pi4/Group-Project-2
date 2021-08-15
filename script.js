@@ -50,4 +50,18 @@ function handleGuardData(data) {
 
 getGuardian(userSearch)
 
-// test
+
+// Able to access top news stories from ESPN using mediastack
+function getSports(){
+    fetch(`http://api.mediastack.com/v1/news?access_key=52e9c798e66a5ef9a2e0d95db13ff19b&sources=espn&countries=us&date=2021-8-1,2021-8-13`)
+    .then(function (response){
+        return response.json();
+    })
+    .then(renderSports);
+}
+
+function renderSports(data){
+    console.log(data)
+}
+
+getSports()
