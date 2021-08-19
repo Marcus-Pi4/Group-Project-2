@@ -4,10 +4,5 @@ CREATE DATABASE user_db;
 
 USE user_db;
 
-CREATE TABLE users (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(50) NOT NULL,
-    user_password VARCHAR(50) NOT NULL
-    
-);
+
 
