@@ -4,7 +4,9 @@ const routes = require('./routes');
 const sequelize = require('./config/connection');
 const mysql = require('mysql2');
 const session = require('express-session');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const SequelizeStore = require
+('connect-session-sequelize')(session.Store);
+const User = require("./models/User.js")
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -33,6 +35,7 @@ app.use(routes);
 
 // Connection to server
 sequelize.sync({ force: false }).then(() => {
+  User.findAll().then(users => console.log('all users in db', users));
   app.listen(PORT, () => console.log(`Now listening at http://localhost:${PORT}`));
 });
 

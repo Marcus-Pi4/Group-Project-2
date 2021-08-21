@@ -13,7 +13,7 @@ function getTopStories(){
 
 var newYorkTimesButton = document.getElementById("newYorkTimes");
 
-newYorkTimesButton.addEventListener('click', getTopStories);
+newYorkTimesButton?.addEventListener('click', getTopStories);
 
 // NYT Top Stories API - fetches top stories based on 'section' - where section options can be from the following list: arts, automobiles, books, business, fashion, food, health, home, insider, magazine, movies, nyregion, obituaries, opinion, politics, realestate, science, sports, sundayreview, technology, theater, t-magazine, travel, upshot, us, world
 
@@ -33,7 +33,7 @@ function handleTimesData(data) {
 
 var timesButton = document.getElementById("time");
 
-timesButton.addEventListener('click', getNewYorkTimes);
+timesButton?.addEventListener('click', getNewYorkTimes);
 
 // The Guardian API - fetches Guadian stories based on 'section' - lots of specific tags/dates/ids available if we want to get crazy
 
@@ -52,7 +52,7 @@ function handleGuardData(data) {
 
 var guardianButton = document.getElementById("guardian")
 
-guardianButton.addEventListener('click', getGuardian)
+guardianButton?.addEventListener('click', getGuardian)
 
 // Able to access top news stories from ESPN using mediastack
 function getSports(){
@@ -85,25 +85,4 @@ const today = String(dateToString)
 
 var espnButton = document.getElementById("espn")
 
-espnButton.addEventListener('click', getSports) 
-
-document.getElementById("login-button").addEventListener("click", async ()=> { 
-    console.log("logging in")
-    try {
-    const response = await fetch("/api/users/login", {
-        method: "POST",
-        headers: {'Content-Type': 'application/json'}, 
-        redirect: 'follow', 
-        body: JSON.stringify({
-            email: 'rachael123@fakeemail.com',
-            password: '#PasSWord49!',
-          })
-    })
-    console.log(response) 
-    if (response.status === 200) {
-        window.location.href = "http://localhost:8080/"
-    }
-    } catch (error){
-        console.log(error)
-    }
-})
+espnButton?.addEventListener('click', getSports) 

@@ -21,8 +21,9 @@ const User = require('../../models/User');
 router.post('/login', async (req, res) => {
     try { 
         // Search DB by user email
+        console.log('user email: ', req.body.email);
         const userData = await User.findOne({ where: { email: req.body.email } }); 
-        console.log("user data is ---------", userData.dataValues)
+        console.log("user data is ---------", userData)
         if (!userData) {
             res.status(404).json({ message: 'Login failed. Please try again!' });
             return;
@@ -45,6 +46,7 @@ router.post('/login', async (req, res) => {
         res.status(302).redirect("/")
         });
         } catch (err) {
+        console.log('look out for this error heree', er);
         res.status(500).json(err);
     }
 });
