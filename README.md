@@ -22,5 +22,5 @@ Website Layout:!
 
   [Login Portal](https://user-images.githubusercontent.com/58586235/129135032-5c7a519f-cb9d-496d-8473-60a08513ce0d.png)
 
-  ![News Page](https://user-images.githubusercontent.com/58586235/129134998-7aa9d36f-6aaf-4a04-afa7-5e1bc34d687c.png)
+  [News Page](https://user-images.githubusercontent.com/58586235/129134998-7aa9d36f-6aaf-4a04-afa7-5e1bc34d687c.png)
 
