@@ -111,3 +111,12 @@ document.getElementById("login-button").addEventListener("click", async ()=> {
         console.log(error)
     }
 })
+
+
+const rememberMe = document.getElementById("rememberMe").addeventListener("change", () => {
+    if(this.checked) {
+        // create cookie to save user data
+    } else {
+        // send user to homepage
+    }
+});

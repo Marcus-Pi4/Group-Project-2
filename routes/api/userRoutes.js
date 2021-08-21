@@ -4,18 +4,18 @@ const bcrypt = require('bcrypt');
 const User = require('../../models/User');
 
 // CREATE a new user
-// router.post('/users', async (req, res) => {
-//     try {
-//         req.body.password = await bcrypt.hash(req.body.password, 10);
-//         const userData = await User.create({ 
-//             email: req.body.email,
-//             password: req.body.password, 
-//         });
-//         res.status(200).json(userData);
-//     } catch (err) {
-//         res.status(400).json(err);
-//     }
-// });
+router.post('/users', async (req, res) => {
+    try {
+        req.body.password = await bcrypt.hash(req.body.password, 10);
+        const userData = await User.create({ 
+            email: req.body.email,
+            password: req.body.password, 
+        });
+        res.status(200).json(userData);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
 
 // LOGIN for current user
 router.post('/login', async (req, res) => {
