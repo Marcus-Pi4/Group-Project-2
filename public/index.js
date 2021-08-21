@@ -85,4 +85,38 @@ const today = String(dateToString)
 
 var espnButton = document.getElementById("espn")
 
+<<<<<<< HEAD:public/index.js
 espnButton?.addEventListener('click', getSports) 
+=======
+espnButton.addEventListener('click', getSports) 
+
+document.getElementById("login-button").addEventListener("click", async ()=> { 
+    console.log("logging in")
+    try {
+    const response = await fetch("/api/users/login", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'}, 
+        redirect: 'follow', 
+        body: JSON.stringify({
+            email: 'rachael123@fakeemail.com',
+            password: '#PasSWord49!',
+          })
+    })
+    console.log(response) 
+    if (response.status === 200) {
+        window.location.href = "http://localhost:8080/"
+    }
+    } catch (error){
+        console.log(error)
+    }
+})
+
+
+const rememberMe = document.getElementById("rememberMe").addeventListener("change", () => {
+    if(this.checked) {
+        // create cookie to save user data
+    } else {
+        // send user to homepage
+    }
+});
+>>>>>>> main:public/script.js

@@ -20,6 +20,9 @@ const sess = {
   cookie: {
     // Stored in seconds (86400 === 1 day)
     maxAge: 86400,
+    httpOnly: true,
+    secure: false,
+    sameSite: 'lax',
   },
   resave: false,
   saveUninitialized: true,
