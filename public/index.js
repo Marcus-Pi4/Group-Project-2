@@ -2,6 +2,17 @@
 
 // NYT Newswire API - fetches the most up to date NYT publications for our default publications to render on page load - can filter 'all', 'nyt' and 'inyt' for the first 'all' and similar to above, there is a section list available to input into the second 'all
 
+function articleTemplate (i, values) {
+    const hyperlink = document.getElementsByClassName("hyperlink")[i];
+    const image = document.getElementsByClassName("imageUrl")[i];
+    const title = document.getElementsByClassName("title")[i];
+    const articleAbstract = document.getElementsByClassName("articleAbstract")[i];
+    articleAbstract.innerHTML = values.abstract;
+    title.innerHTML = values.title;
+    image.src = values.image;
+    hyperlink.innerHTML = values.url;
+}
+
 const newYorkTimesButton = document.getElementById("newYorkTimes");
 
 newYorkTimesButton?.addEventListener('click', getTopStories);
@@ -22,11 +33,9 @@ function handleTopStoriesData(data) {
             title: data.results[i].title,
             url: data.results[i].url
         }
-        
-        
+        articleTemplate (i, articleData);
     };
     console.log(data);
-    console.log(articleData);
 };
 
 // NYT Top Stories API - fetches top stories based on 'section' - where section options can be from the following list: arts, automobiles, books, business, fashion, food, health, home, insider, magazine, movies, nyregion, obituaries, opinion, politics, realestate, science, sports, sundayreview, technology, theater, t-magazine, travel, upshot, us, world
@@ -48,14 +57,12 @@ function getNewYorkTimes(){
 
 function handleNewYorkTimesData(data) {
     let articleData = {
-        summary: data.results[0],
+        abstract: data.results[0],
         image: data,
         title: data,
         url: data
     }
     console.log(data);
-    console.log(articleData);
-    Handlebars.
 };
 
 // The Guardian API - fetches Guadian stories based on 'section' - lots of specific tags/dates/ids available if we want to get crazy
@@ -77,13 +84,12 @@ function getGuardian(){
 
 function handleGuardianData(data) {
     let articleData = {
-        summary: data.response.results[0],
-        image: data.response.results[0].,
+        abstract: data,
+        image: data,
         title: data,
         url: data
     }
     console.log(data);
-    console.log(articleData);
 };
 
 // Able to access top news stories from ESPN using mediastack
@@ -102,7 +108,7 @@ function getEspn(){
 
 function handleEspnData(data){
     let articleData = {
-        summary: data.data[0].description,
+        abstract: data.data[0].description,
         image: data.data[0].image,
         title: data.data[0].title,
         url: data.data[0].url
@@ -110,10 +116,6 @@ function handleEspnData(data){
     console.log(data)
     console.log(articleData);
 };
-
-const today = String(dateToString);
-
-const dateToString = formatDate(newDate);
 
 const newDate = new Date();
 function formatDate(date) {
@@ -129,21 +131,28 @@ function formatDate(date) {
     return [year, month, day].join('-');
 };
 
+const dateToString = formatDate(newDate);
+
+const today = String(dateToString);
+
+
+
 document.getElementById("login-button").addEventListener("click", async ()=> { 
-    console.log("logging in")
+    console.log("logging in");
     try {
     const response = await fetch("/api/users/login", {
         method: "POST",
         headers: {'Content-Type': 'application/json'}, 
         redirect: 'follow', 
         body: JSON.stringify({
-            email: 'test@test.com',
-            password: 'testtest',
+            email: document.getElementById('user-email').value,
+            password: document.getElementById('user-password').value,
           })
+          
     })
     console.log(response) 
     if (response.status === 200) {
-        window.location.href = "http://localhost:8080/"
+        window.location.href = "window.location.origin"
     }
     } catch (error){
         console.log(error)
