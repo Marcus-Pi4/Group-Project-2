@@ -9,8 +9,8 @@ document.getElementById("login-button").addEventListener("click", async ()=> {
         body: JSON.stringify({
             email: document.getElementById('user-email').value,
             password: document.getElementById('user-password').value,
-          })
-    })
+          }) 
+        }) 
     console.log(response) 
     if (response.status === 200) {
         window.location.href = window.location.origin;
