@@ -1,23 +1,30 @@
+const newYorkTimesButton = document.getElementById("newYorkTimes");
+const timesButton = document.getElementById("time");
+const guardianButton = document.getElementById("guardian");
+const espnButton = document.getElementById("espn");
+espnButton.addEventListener('click', getEspn);
 
+guardianButton?.addEventListener('click', getGuardian);
+newYorkTimesButton?.addEventListener('click', getTopStories);
+timesButton?.addEventListener('click', getNewYorkTimes);
 
-// NYT Newswire API - fetches the most up to date NYT publications for our default publications to render on page load - can filter 'all', 'nyt' and 'inyt' for the first 'all' and similar to above, there is a section list available to input into the second 'all
-
-function articleTemplate (i, values) {
-    const hyperlink = document.getElementsByClassName("hyperlink")[i];
-    const image = document.getElementsByClassName("imageUrl")[i];
-    const title = document.getElementsByClassName("title")[i];
-    const articleAbstract = document.getElementsByClassName("articleAbstract")[i];
+function articleTemplate(i, values) {
+    const newsDiv = document.getElementById('newsCardDiv');
+    let newsCard = document.getElementsByClassName("newsCard")[i];
+    let clone = newsCard.cloneNode([true]);
+    let hyperlink = document.getElementsByClassName("hyperlink")[i];
+    let image = document.getElementsByClassName("imageUrl")[i];
+    let title = document.getElementsByClassName("title")[i];
+    let articleAbstract = document.getElementsByClassName("articleAbstract")[i];
+    newsDiv.appendChild(clone);
     articleAbstract.innerHTML = values.abstract;
     title.innerHTML = values.title;
     image.src = values.image;
-    hyperlink.innerHTML = values.url;
-}
-
-const newYorkTimesButton = document.getElementById("newYorkTimes");
-
-newYorkTimesButton?.addEventListener('click', getTopStories);
+    hyperlink.href = values.url;
+};
 
 function getTopStories(){
+    document.getElementsByClassName('is-hidden')[0].classList.remove('is-hidden');
     fetch(`https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=QuEHRaQh47l8vSF9ewprDtUY6fj2IJz6`)
     .then(function (response){
         return response.json();
@@ -25,29 +32,9 @@ function getTopStories(){
     .then(handleTopStoriesData);
 };
 
-function handleTopStoriesData(data) {
-    for (let i = 0; i < data.length; i++) {
-        let articleData = {
-            abstract: data.results[i].abstract,
-            image: data.results[i].multimedia[2].url,
-            title: data.results[i].title,
-            url: data.results[i].url
-        }
-        articleTemplate (i, articleData);
-    };
-    console.log(data);
-};
-
-// NYT Top Stories API - fetches top stories based on 'section' - where section options can be from the following list: arts, automobiles, books, business, fashion, food, health, home, insider, magazine, movies, nyregion, obituaries, opinion, politics, realestate, science, sports, sundayreview, technology, theater, t-magazine, travel, upshot, us, world
-
-//need to create dropdown menu with interactive buttons to utilize various sections of the NewYorkTimes API
-
-const timesButton = document.getElementById("time");
-
-timesButton?.addEventListener('click', getNewYorkTimes);
-
 function getNewYorkTimes(){
-    let section = 'politics'
+    document.getElementsByClassName('is-hidden')[0].classList.remove('is-hidden');
+    const section = 'politics';
     fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=QuEHRaQh47l8vSF9ewprDtUY6fj2IJz6`)
         .then(function (response){
             return response.json();
@@ -55,50 +42,18 @@ function getNewYorkTimes(){
     .then(handleNewYorkTimesData);
 };
 
-function handleNewYorkTimesData(data) {
-    let articleData = {
-        abstract: data.results[0],
-        image: data,
-        title: data,
-        url: data
-    }
-    console.log(data);
-};
-
-// The Guardian API - fetches Guadian stories based on 'section' - lots of specific tags/dates/ids available if we want to get crazy
-
-//need dropdown menu for other Guardian news choices
-
-const guardianButton = document.getElementById("guardian")
-
-guardianButton?.addEventListener('click', getGuardian)
-
 function getGuardian(){
-    var section = 'news';
+    document.getElementsByClassName('is-hidden')[0].classList.remove('is-hidden');
+    const section = 'news';
     fetch(`https://content.guardianapis.com/${section}?api-key=c2d87c2d-db21-443e-a087-c96cb6b96da8`)
-        .then(function (response){
-            return response.json();
-        })
+    .then(function (response){
+        return response.json();
+    })
     .then(handleGuardianData);
 };
 
-function handleGuardianData(data) {
-    let articleData = {
-        abstract: data,
-        image: data,
-        title: data,
-        url: data
-    }
-    console.log(data);
-};
-
-// Able to access top news stories from ESPN using mediastack
-
-const espnButton = document.getElementById("espn");
-
-espnButton.addEventListener('click', getEspn);
-
 function getEspn(){
+    document.getElementsByClassName('is-hidden')[0].classList.remove('is-hidden');
     fetch(`http://api.mediastack.com/v1/news?access_key=52e9c798e66a5ef9a2e0d95db13ff19b&sources=espn&countries=us&date=${today}`)
     .then(function (response){
         return response.json();
@@ -106,20 +61,60 @@ function getEspn(){
     .then(handleEspnData);
 };
 
+function handleTopStoriesData(data) {
+    console.log(data.results);
+    for (let i = 0; i < data.results.length; i++) {
+        let articleData = {
+            abstract: (data.results[i].abstract? data.results[i].abstract: ""),
+            image: (data.results[i].multimedia[2].url? data.results[i].multimedia[2].url: ""),
+            title: (data.results[i].title? data.results[i].title: ""),
+            url: (data.results[i].url? data.results[i].url: "")
+        }
+        articleTemplate (i, articleData);
+    }; 
+};
+
+function handleNewYorkTimesData(data) {
+    console.log(data);
+    for (let i = 0; i < data.results.length; i++) {
+        let articleData = {
+            abstract: data.results[i].abstract,
+            image: data.results[i].multimedia[3].url,
+            title: data.results[i].title,
+            url: data.results[i].url
+        }
+        articleTemplate (i, articleData);
+    };
+};
+
+function handleGuardianData(data) {
+    console.log(data);
+    for (let i = 0; i < data.response.results.length; i++) {
+        let articleData = {
+            abstract: "",
+            image: "",
+            title: data.response.results[i].webTitle,
+            url: data.response.results[i].webUrl
+        };
+    articleTemplate (i, articleData);
+    };
+};
+
 function handleEspnData(data){
-    let articleData = {
-        abstract: data.data[0].description,
-        image: data.data[0].image,
-        title: data.data[0].title,
-        url: data.data[0].url
-    }
-    console.log(data)
-    console.log(articleData);
+    for (let i = 0; i < data.data.length; i++) {
+        let articleData = {
+            abstract: data.data[i].description,
+            image: data.data[i].image,
+            title: data.data[i].title,
+            url: data.data[i].url
+        }
+    articleTemplate (i, articleData);
+    };
 };
 
 const newDate = new Date();
 function formatDate(date) {
-    var d = new Date(date),
+    let d = new Date(date),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
         year = d.getFullYear();
@@ -132,38 +127,4 @@ function formatDate(date) {
 };
 
 const dateToString = formatDate(newDate);
-
 const today = String(dateToString);
-
-
-espnButton.addEventListener('click', getSports) 
-
-// document.getElementById("login-button").addEventListener("click", async ()=> { 
-//     console.log("logging in")
-//     try {
-//     const response = await fetch("/api/users/login", {
-//         method: "POST",
-//         headers: {'Content-Type': 'application/json'}, 
-//         redirect: 'follow', 
-//         body: JSON.stringify({
-//             email: 'rachael123@fakeemail.com',
-//             password: '#PasSWord49!',
-//           })
-//     })
-//     console.log(response) 
-//     if (response.status === 200) {
-//         window.location.href = "http://localhost:8080/"
-//     }
-//     } catch (error){
-//         console.log(error)
-//     }
-// })
-
-
-// const rememberMe = document.getElementById("rememberMe").addeventListener("change", () => {
-//     if(this.checked) {
-//         // create cookie to save user data
-//     } else {
-//         // send user to homepage
-//     }
-// });
