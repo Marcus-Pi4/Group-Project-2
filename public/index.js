@@ -2,7 +2,7 @@ const newYorkTimesButton = document.getElementById("newYorkTimes");
 const timesButton = document.getElementById("time");
 const guardianButton = document.getElementById("guardian");
 const espnButton = document.getElementById("espn");
-espnButton.addEventListener('click', getEspn);
+const espnButton.addEventListener('click', getEspn);
 
 guardianButton?.addEventListener('click', getGuardian);
 newYorkTimesButton?.addEventListener('click', getTopStories);
