@@ -7,6 +7,9 @@ const userdata =
   }
 ;
 
-const seedUser = () => User.create(userdata);
+const seedUser = () => User.create(userdata, {
+  individualHooks: true,
+  returning: true,
+});
 
 module.exports = seedUser;
