@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
     process.env.DB_USER,
     process.env.DB_PASSWORD,
     {
-    host: 'z3iruaadbwo0iyfp.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    host: process.env.JAWSDB,
     dialect: 'mysql',
     }
 );
