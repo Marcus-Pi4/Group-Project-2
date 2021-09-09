@@ -2,14 +2,16 @@
 document.getElementById("login-button").addEventListener("click", async ()=> { 
     console.log("logging in")
     try {
+        const userData =  JSON.stringify({
+            email: document.getElementById('user-email').value,
+            password: document.getElementById('user-password').value,
+          })
+        console.log('user data is ---------', userData);
     const response = await fetch("/api/users/login", {
         method: "POST",
         headers: {'Content-Type': 'application/json'}, 
         redirect: 'follow', 
-        body: JSON.stringify({
-            email: document.getElementById('user-email').value,
-            password: document.getElementById('user-password').value,
-          })
+        body: userData
     })
     console.log(response) 
     if (response.status === 200) {
