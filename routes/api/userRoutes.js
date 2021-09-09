@@ -18,20 +18,13 @@ router.post('/signup', async (req, res) => {
 
 // LOGIN for current user
 router.post('/login', async (req, res) => {
-    console.log('-----------------------');
     try { 
         // Search DB by user email
-        console.log('user email: ', req.body.email);
-        const userData = await User.findOne({ where: { email: req.body.email } }); 
-        console.log("user data is ---------", userData)
+        const userData = await User.findOne({ where: { email: req.body.email } });
         if (!userData) {
             res.status(404).json({ message: 'Login failed. Please try again!' });
             return;
         }
-
-        console.log('user password is ----------', req.body.password);
-        console.log('user hash is ---------', userData.dataValues.password);
-        console.log('user validation is --------', await userData.validatePassword(req.body.password));
     // Using bcrypt to compare entered password and the hashed password
         const validPassword = await bcrypt.compare(
             req.body.password,
