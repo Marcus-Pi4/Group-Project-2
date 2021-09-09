@@ -29,6 +29,8 @@ router.post('/login', async (req, res) => {
             res.status(404).json({ message: 'Login failed. Please try again!' });
             return;
         }
+
+        console.log('user password is ----------', req.body.password);
     // Using bcrypt to compare entered password and the hashed password
         const validPassword = await bcrypt.compare(
             req.body.password,
