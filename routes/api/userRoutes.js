@@ -31,6 +31,8 @@ router.post('/login', async (req, res) => {
         }
 
         console.log('user password is ----------', req.body.password);
+        console.log('user hash is ---------', userData.dataValues.password);
+        console.log('user validation is --------', await userData.validatePassword(req.body.password));
     // Using bcrypt to compare entered password and the hashed password
         const validPassword = await bcrypt.compare(
             req.body.password,
