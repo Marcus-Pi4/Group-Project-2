@@ -4,8 +4,7 @@ const userdata =
   {
     email: 'test@test.com',
     password: 'testtest',
-  }
-;
+  };
 
 const seedUser = () => User.create(userdata);
 

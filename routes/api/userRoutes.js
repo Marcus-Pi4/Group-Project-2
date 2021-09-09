@@ -19,6 +19,7 @@ router.post('/signup', async (req, res) => {
 
 // LOGIN for current user
 router.post('/login', async (req, res) => {
+    console.log('-----------------------');
     try { 
         // Search DB by user email
         console.log('user email: ', req.body.email);
@@ -35,6 +36,7 @@ router.post('/login', async (req, res) => {
         );
         // return error message if password does NOT match
         if (!validPassword) { 
+            console.log('invalid user password');
             res.status(400).json({ message: 'Login failed. Please try again' });
         return;
         }
@@ -46,7 +48,7 @@ router.post('/login', async (req, res) => {
         res.status(302).redirect("/")
         });
         } catch (err) {
-        console.log('look out for this error heree', er);
+        console.log('look out for this error here', err);
         res.status(500).json(err);
     }
 });
